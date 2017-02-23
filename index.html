@@ -129,12 +129,14 @@
                 height: 4rem;
                 border-radius: 2rem;
                 -webkit-animation: run 6s linear 0s infinite;
-                position: relative;
-                top: 2rem;
+                /* position: fixed; */
+                /* top: 3rem; */
                 /* left: 4rem; */
                 margin: 0 auto;
+                /* bottom: 1.5rem; */
+                /* left: 50%; */
                 /* transform: translateX(50%); */
-                /* background-attachment: initial; */
+                margin-top: 2rem;
             }
             .pause{
                 animation-play-state:paused;
@@ -214,6 +216,28 @@
             var widthline = Math.round(audio.currentTime) / Math.round(audio.duration) * 100;
             pastime.style.width = widthline + "%";
         }, 500);
+    $('#audio').on('ended', function() {
+        playnext()
+    })
+    var music = document.querySelector('#audio')
+    $(document).keydown(function(e){
+    if(!e) var e = window.event;
+    if(e.keyCode==32){
+        // alert("hha");//在这里写要改变的东西
+        if (music.paused) {
+            music.play()
+            $('.musicplayer-button-pause').addClass('hide')
+            $('.musicplayer-button-play').removeClass('hide')
+           //  e.addClass('.hide')
+           $('.liu').removeClass('pause')
+        } else {
+            music.pause()
+            $('.musicplayer-button-pause').addClass('hide')
+            $('.musicplayer-button-play').removeClass('hide')
+            $('.liu').addClass('pause')
+        }
+    }
+     });
     // 当音乐开始播放 设置进度条最大长度 最大时间 和 当前播放CSS
     $('#audio').on('playing', function(event) {
             // console.log('开始了');
@@ -283,24 +307,27 @@
          }
      })
      // 暂停
-     $('.musicplayer-button-pause').on('click', function(event) {
-             var e = event.target
-             console.log('点击了play',e);
-             var music = document.querySelector('#audio')
-             console.log(music);
-             $('.liu').addClass('pause')
-             if (music.paused) {
-                 music.play()
-                 $('.musicplayer-button-pause').addClass('hide')
-                 $('.musicplayer-button-play').removeClass('hide')
-                //  e.addClass('.hide')
-             } else {
-                 music.pause()
-                 $('.musicplayer-button-pause').addClass('hide')
-                 $('.musicplayer-button-play').removeClass('hide')
-             }
-         })
-         //播放 上一曲
+     var pause = function() {
+         $('.musicplayer-button-pause').on('click', function(event) {
+                 var e = event.target
+                 console.log('点击了play',e);
+                 var music = document.querySelector('#audio')
+                 console.log(music);
+                 $('.liu').addClass('pause')
+                 if (music.paused) {
+                     music.play()
+                     $('.musicplayer-button-pause').addClass('hide')
+                     $('.musicplayer-button-play').removeClass('hide')
+                    //  e.addClass('.hide')
+                 } else {
+                     music.pause()
+                     $('.musicplayer-button-pause').addClass('hide')
+                     $('.musicplayer-button-play').removeClass('hide')
+                 }
+             })
+     }
+     //播放 上一曲
+     var playprev = function() {
          $('.musicplayer-button-last').on('click', function(event) {
              var all = mList.length
              var old = Number($('#audio')[0].dataset.id) + all
@@ -319,7 +346,9 @@
                  }
              })
          })
-         //播放 下一曲
+     }
+     //播放 下一曲
+     var playnext = function() {
          $('.musicplayer-button-next').on('click', function(event) {
              var all = mList.length
              var old = Number($('#audio')[0].dataset.id) + all
@@ -338,6 +367,10 @@
                  }
              })
          })
+     }
+     playprev()
+     playnext()
+     pause()
 </script>
     </body>
 </html>
