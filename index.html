@@ -10,10 +10,10 @@
         <style>
             /*背景样式*/
             #id-background{
-                background: url(images/三寸天堂.jpg) no-repeat;
+                background: url(images/演员.jpg) no-repeat;
                 background-size:15rem;
                 backgrond-attachment:fixed;
-                filter: blur(50px);
+                filter: blur(50px) contrast(40%);
                 width: 12rem;
                 height: 13.34rem;
                 z-index: -1;
@@ -123,7 +123,7 @@
                 display: none;
             }
             .liu{
-                background: url(images/三寸天堂.jpg) no-repeat;
+                background: url(images/演员.jpg) no-repeat;
                 background-size: cover;
                 width: 4rem;
                 height: 4rem;
@@ -181,33 +181,39 @@
     var mList = [{
             id: '0',
             type: 'mp3',
-            name: '薛之谦',
-            artist: '演员'
+            name: '演员',
+            artist: '薛之谦',
+            picture: 'images/演员.jpg',
         }, {
             id: '1',
             type: 'mp3',
-            name: '漂洋过海来看你',
-            artist: '周深'
+            name: '突然想起你',
+            artist: '萧亚轩',
+            picture: 'images/突然想起你.jpg',
         }, {
             id: '2',
             type: 'mp3',
-            name: '严艺丹',
-            artist: '三寸天堂'
+            name: '三寸天堂',
+            artist: '严艺丹',
+            picture: 'images/三寸天堂.jpg',
         }, {
             id: '3',
             type: 'mp3',
-            name: '周二珂',
-            artist: '走在冷风中'
+            name: '走在冷风中',
+            artist: '周二珂',
+            picture: 'images/走在冷风中.jpg',
         }, {
             id: '4',
             type: 'mp3',
-            name: '成都(2016无法长大演唱会Live)',
-            artist: '赵雷'
+            name: '成都',
+            artist: '赵雷',
+            picture: 'images/成都.jpg',
         }, {
             id: '5',
             type: 'mp3',
-            name: '张敬轩',
-            artist: '吻得太逼真'
+            name: '吻得太逼真',
+            artist: '张敬轩',
+            picture: 'images/吻得太逼真.jpg',
     }, ]
     // 进度条的动态显示
     var pasTime = function() {
@@ -319,6 +325,8 @@
                  if (ea.id == id) {
                      $('#id-BGM-name').text(ea.name)
                      $('#id-BGM-artist').text(ea.artist)
+                     $(".liu").css({"background": 'url(' + ea.picture + ')','background-size': 'cover'});
+                     $("#id-background").css({"background": 'url(' + ea.picture + ')','background-size': 'cover'});
                  }
              })
          })
@@ -340,6 +348,9 @@
                  if (e.id == id) {
                      $('#id-BGM-name').text(e.name)
                      $('#id-BGM-artist').text(e.artist)
+                     console.log('url(' + e.picture + ')');
+                     $(".liu").css({"background": 'url(' + e.picture + ')','background-size': 'cover'});
+                     $("#id-background").css({"background": 'url(' + e.picture + ')','background-size': 'cover'});
                  }
              })
          })
