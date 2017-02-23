@@ -1,3 +1,3 @@
 # musicplayer
-初版
-![image](https://github.com/guojunhao118/musicplayer/blob/master/images/%E4%B8%89%E5%AF%B8%E5%A4%A9%E5%A0%82.jpg)
+1.0.0版 实现了基本的播放，切换歌曲，添加了背景图片和封面旋转效果，代码比较杂乱，有待完善
+![image](https://github.com/guojunhao118/musicplayer/blob/master/GIF.gif)
