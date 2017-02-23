@@ -178,176 +178,152 @@
             <div class="musicplayer-button-next"></div>
         </div>
 <script>
-        var mList = [{
-        id: '0',
-        type: 'mp3',
-        name: '薛之谦',
-        artist: '演员'
-    }, {
-        id: '1',
-        type: 'mp3',
-        name: '漂洋过海来看你',
-        artist: '周深'
-    }, {
-        id: '2',
-        type: 'mp3',
-        name: '严艺丹',
-        artist: '三寸天堂'
-    }, {
-        id: '3',
-        type: 'mp3',
-        name: '周二珂',
-        artist: '走在冷风中'
-    }, {
-        id: '4',
-        type: 'mp3',
-        name: '成都(2016无法长大演唱会Live)',
-        artist: '赵雷'
-    }, {
-        id: '5',
-        type: 'mp3',
-        name: '张敬轩',
-        artist: '吻得太逼真'
-}, ]
-        /**进度条的动态显示*/
-        var audio = $("#audio")[0];
-        var pastime = $("#pastime")[0];
-        var interval = setInterval(function() {
-            var widthline = Math.round(audio.currentTime) / Math.round(audio.duration) * 100;
-            pastime.style.width = widthline + "%";
-        }, 500);
-    $('#audio').on('ended', function() {
-        playnext()
-    })
-    var music = document.querySelector('#audio')
-    $(document).keydown(function(e){
-    if(!e) var e = window.event;
-    if(e.keyCode==32){
-        // alert("hha");//在这里写要改变的东西
-        if (music.paused) {
-            music.play()
-            $('.musicplayer-button-pause').addClass('hide')
-            $('.musicplayer-button-play').removeClass('hide')
-           //  e.addClass('.hide')
-           $('.liu').removeClass('pause')
-        } else {
-            music.pause()
-            $('.musicplayer-button-pause').addClass('hide')
-            $('.musicplayer-button-play').removeClass('hide')
-            $('.liu').addClass('pause')
+    var mList = [{
+            id: '0',
+            type: 'mp3',
+            name: '薛之谦',
+            artist: '演员'
+        }, {
+            id: '1',
+            type: 'mp3',
+            name: '漂洋过海来看你',
+            artist: '周深'
+        }, {
+            id: '2',
+            type: 'mp3',
+            name: '严艺丹',
+            artist: '三寸天堂'
+        }, {
+            id: '3',
+            type: 'mp3',
+            name: '周二珂',
+            artist: '走在冷风中'
+        }, {
+            id: '4',
+            type: 'mp3',
+            name: '成都(2016无法长大演唱会Live)',
+            artist: '赵雷'
+        }, {
+            id: '5',
+            type: 'mp3',
+            name: '张敬轩',
+            artist: '吻得太逼真'
+    }, ]
+    // 进度条的动态显示
+    var pasTime = function() {
+            var audio = $("#audio")[0];
+            var pastime = $("#pastime")[0];
+            var interval = setInterval(function() {
+                var widthline = Math.round(audio.currentTime) / Math.round(audio.duration) * 100;
+                pastime.style.width = widthline + "%";
+            }, 500);
         }
+    // 空格暂停播放
+    var spaceKey = function() {
+        $(document).keydown(function(e){
+            if(!e) var e = window.event;
+            if(e.keyCode==32){
+                // alert("hha");//在这里写要改变的东西
+                play()
+            }
+         });
     }
-     });
-    // 当音乐开始播放 设置进度条最大长度 最大时间 和 当前播放CSS
-    $('#audio').on('playing', function(event) {
-            // console.log('开始了');
-            var chang = $('#audio')[0].duration
-            // $("#ex1Slider").slider({ max: chang })
-            var m = String(Math.floor(chang / 60))
-            var s = String(Math.floor(chang % 60))
-            if (m.length === 1) {
-                m = '0' + m
-            }
-            if (s.length === 1) {
-                s = '0' + s
-            }
-            $('.BGM-time-right').text(`${m}:${s}`)
-            $('.musicplayer-button-pause').removeClass('hide')
-            $('.musicplayer-button-play').addClass('hide')
-            // var id = event.target.dataset.id
-            // $('music').each( function(i, e) {
-            //     if (e.dataset.id === id) {
-            //         $(e).addClass('playing')
-            //     } else {
-            //         $(e).removeClass('playing')
-            //     }
-            // })
-        })
-    //滑条时间变化
-     $('#audio').on('timeupdate', function() {
-                 var now = event.target.currentTime
-                 var m = String(Math.floor(now / 60))
-                 var s = String(Math.floor(now % 60))
-                 if (m.length === 1) {
-                     m = '0' + m
-                 }
-                 if (s.length === 1) {
-                     s = '0' + s
-                 }
-                 $('.BGM-time-left').text(`${m}:${s}`)
-                //   $("#ex1Slider").dataset.slider.value = now;
-                //  $("#ex1Slider").slider({ value: now })
-                 // Instantiate a slider
-                // var mySlider = $("#ex1Slider").slider();
-
-                // Call a method on the slider
-                // var value = mySlider.slider('getValue');
-
-                // For non-getter methods, you can chain together commands
-                    // mySlider.slider('setValue', now)
-                        // .slider('setValue', 7);
-                // $("#ex1Slider").slide(now)
-             })
-         // 播放
-    // 播放
-     $('.musicplayer-button-play').on('click', function(event) {
-         var e = event.target
-        //  console.log('点击了play',e);
-        //  console.log($('.liu').style.background);
-         $('.liu').removeClass('pause')
+    // 切换播放暂停
+     var play = function() {
          var music = document.querySelector('#audio')
-        //  console.log(music);
          if (music.paused) {
              music.play()
-             $('.musicplayer-button-pause').removeClass('hide')
-             $('.musicplayer-button-play').addClass('hide')
-            //  e.addClass('.hide')
+             $('.musicplayer-button-pause').addClass('hide')
+             $('.musicplayer-button-play').removeClass('hide')
+            $('.liu').removeClass('pause')
          } else {
              music.pause()
+             $('.musicplayer-button-pause').addClass('hide')
+             $('.musicplayer-button-play').removeClass('hide')
+             $('.liu').addClass('pause')
          }
-     })
-     // 暂停
-     var pause = function() {
-         $('.musicplayer-button-pause').on('click', function(event) {
-                 var e = event.target
-                 console.log('点击了play',e);
-                 var music = document.querySelector('#audio')
-                 console.log(music);
-                 $('.liu').addClass('pause')
-                 if (music.paused) {
-                     music.play()
-                     $('.musicplayer-button-pause').addClass('hide')
-                     $('.musicplayer-button-play').removeClass('hide')
-                    //  e.addClass('.hide')
-                 } else {
-                     music.pause()
-                     $('.musicplayer-button-pause').addClass('hide')
-                     $('.musicplayer-button-play').removeClass('hide')
-                 }
-             })
      }
+    // 当音乐开始播放 设置进度条最大长度 最大时间 和 当前播放CSS
+    var musicPlaying = function() {
+        $('#audio').on('playing', function(event) {
+                // console.log('开始了');
+                var chang = $('#audio')[0].duration
+                var m = String(Math.floor(chang / 60))
+                var s = String(Math.floor(chang % 60))
+                if (m.length === 1) {
+                    m = '0' + m
+                }
+                if (s.length === 1) {
+                    s = '0' + s
+                }
+                $('.BGM-time-right').text(`${m}:${s}`)
+                $('.musicplayer-button-pause').removeClass('hide')
+                $('.musicplayer-button-play').addClass('hide')
+                // var id = event.target.dataset.id
+                // $('music').each( function(i, e) {
+                //     if (e.dataset.id === id) {
+                //         $(e).addClass('playing')
+                //     } else {
+                //         $(e).removeClass('playing')
+                //     }
+                // })
+            })
+    }
+    // 左边时间变化
+    var musicChange = function() {
+        $('#audio').on('timeupdate', function() {
+                    var now = event.target.currentTime
+                    var m = String(Math.floor(now / 60))
+                    var s = String(Math.floor(now % 60))
+                    if (m.length === 1) {
+                        m = '0' + m
+                    }
+                    if (s.length === 1) {
+                        s = '0' + s
+                    }
+                    $('.BGM-time-left').text(`${m}:${s}`)
+                   //   $("#ex1Slider").dataset.slider.value = now;
+                   //  $("#ex1Slider").slider({ value: now })
+                    // Instantiate a slider
+                   // var mySlider = $("#ex1Slider").slider();
+
+                   // Call a method on the slider
+                   // var value = mySlider.slider('getValue');
+
+                   // For non-getter methods, you can chain together commands
+                       // mySlider.slider('setValue', now)
+                           // .slider('setValue', 7);
+                   // $("#ex1Slider").slide(now)
+                })
+    }
+    // 播放按钮
+    var musicPlayer = function() {
+        $('.musicplayer-button').on('click', function(event) {
+            play()
+        })
+    }
      //播放 上一曲
      var playprev = function() {
          $('.musicplayer-button-last').on('click', function(event) {
              var all = mList.length
              var old = Number($('#audio')[0].dataset.id) + all
              var id = (old - 1) % all
-             $(mList).each( function(i ,e) {
-                 if (Number(e.id) === id) {
+             $(mList).each( function(i ,ea) {
+                 if (Number(ea.id) === id) {
                      var player = $("#audio")[0]
-                     player.src = `music/${id}.${e.type}`
+                     player.src = `music/${id}.${ea.type}`
                      player.dataset.id = id
                  }
              })
-             $(mList).each( function(i ,e) {
-                 if (e.id == id) {
-                     $('#id-BGM-name').text(e.name)
-                     $('#id-BGM-artist').text(e.artist)
+             $(mList).each( function(i ,ea) {
+                 if (ea.id == id) {
+                     $('#id-BGM-name').text(ea.name)
+                     $('#id-BGM-artist').text(ea.artist)
                  }
              })
          })
      }
-     //播放 下一曲
+     //点击切换按钮
      var playnext = function() {
          $('.musicplayer-button-next').on('click', function(event) {
              var all = mList.length
@@ -368,9 +344,17 @@
              })
          })
      }
-     playprev()
-     playnext()
-     pause()
+    //  pause()
+     var _main = function() {
+         playprev()
+         playnext()
+         musicPlayer()
+         musicChange()
+         musicPlaying()
+         spaceKey()
+         pasTime()
+     }
+     _main()
 </script>
     </body>
 </html>
